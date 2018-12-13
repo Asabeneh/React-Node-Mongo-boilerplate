@@ -1,0 +1,21 @@
+{
+  "name": "node-practice",
+  "version": "1.0.0",
+  "description": "\"It is second day of node\"",
+  "main": "server.js",
+  "scripts": {
+    "start":"node server.js",
+    "heroku-postbuild": "cd client && yarn && yarn run build"
+  },
+  "engines": {
+    "node":"10.12.0"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "mongoose": "^5.3.15"
+  }
+}
