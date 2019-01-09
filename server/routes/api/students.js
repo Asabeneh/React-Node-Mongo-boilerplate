@@ -5,7 +5,7 @@ const {
   addStudent,
   editStudent,
   deleteStudent,
-} = require ('../controllers/students.controller');
+} = require ('../../controllers/students.controller');
 const studentRouter = express.Router ();
 
 studentRouter.get('/',(req, res) => res.send('Check /students route if there student.'))
