@@ -28,7 +28,7 @@ class AddStudent extends Component {
     let {name, age} = this.state;
     let data = {name, age};
     axios
-      .post ('/students', data)
+      .post ('/api/students', data)
       .then (response => {
         this.setState ({
           errors: {},

@@ -7,7 +7,7 @@ class Students extends Component {
     students: [],
   };
   componentDidMount () {
-    axios.get ('/students').then (response => {
+    axios.get ('/api/students').then (response => {
       console.log (response);
       this.setState ({
         students: response.data,
@@ -25,9 +25,8 @@ class Students extends Component {
       <div>
         <p>{this.state.students.length}</p>
         <ul className="list-group">
-                {this.renderStudents()}
+          {this.renderStudents ()}
         </ul>
-      
 
       </div>
     );

@@ -2,9 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
-const studentRouter = require('./server/routes/api/students');
+const passport = require('passport');
+const studentRouter = require('./server/routes/students');
 const userRouter = require('./server/routes/api/users');
-const {MONGODB_URI} = require('./server/config/keys');
+const {mongoURI} = require('./server/config/keys');
 const PORT = process.env.PORT || 5000;
 const app = express();
 const os = require('os');
@@ -22,7 +23,7 @@ app.use((req, res, next) => {
 });
 
 mongoose.connect(
-  MONGODB_URI,
+  mongoURI,
   {useNewUrlParser: true},
   err => {
     if (err) {
@@ -31,6 +32,9 @@ mongoose.connect(
     console.log('Dabase is connected');
   }
 );
+
+app.use(passport.initialize());
+require('./server/config/passport')(passport);
 
 app.use(bodyParser.json());
 app.use('/api', studentRouter);

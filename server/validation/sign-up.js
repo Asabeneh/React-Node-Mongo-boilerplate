@@ -28,7 +28,7 @@ const validateSignUpInput = data => {
   if (isEmpty(data.password2)) {
     errors.password2 = 'Confirm field is required';
   }
-  if (!validator.equals(data.password, data.password2)) {
+  if (!validator.equals(data.password2, data.password)) {
     errors.password2 = 'Confirm must match';
   }
 

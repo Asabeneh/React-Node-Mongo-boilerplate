@@ -5,10 +5,6 @@ const gravatar = require('gravatar');
 const keys = require('../config/keys');
 const validateSignUpInput = require('../validation/sign-up');
 const validateSignInInput = require('../validation/sign-In');
-module.exports = {
-  signUp,
-  signIn,
-};
 
 function signUp(req, res) {
   const {errors, isValid} = validateSignUpInput(req.body);
@@ -16,11 +12,13 @@ function signUp(req, res) {
     return res.status(400).json(errors);
   }
   const {name, email, password} = req.body;
+
   User.findOne({email}).then(user => {
     if (user) {
       errors.email = 'A user already exist';
       return res.status(400).json(errors);
     }
+
     const avatar = gravatar.url(email, {s: '100', r: 'x', d: 'retro'}, true);
     const newUser = new User({name, email, password, avatar});
 
@@ -32,8 +30,8 @@ function signUp(req, res) {
         newUser
           .save()
           .then(user => {
-            res.send('Send something');
             res.json({success: true, message: 'A user is ceated'});
+            //res.json(user);
           })
           .catch(err => console.log(err));
       });
@@ -66,8 +64,8 @@ function signIn(req, res) {
         console.log('pay load at user route:', payload);
         //Sign Token
         //  res.json({ msg: 'Success' })
-        jwt.sign(payload, keys.SecretOrKey, {expiresIn: 3600}, (err, token) => {
-          res.json({success: true, token: 'Bearer ' + token});
+        jwt.sign(payload, keys.secretOrKey, {expiresIn: 3600}, (err, token) => {
+          res.json({success: true, token: `Bearer ${token}`});
         });
       } else {
         errors.password = 'Password incorrect';
@@ -78,4 +76,7 @@ function signIn(req, res) {
   });
 }
 
-function logIn(req, res) {}
+module.exports = {
+  signUp,
+  signIn,
+};
