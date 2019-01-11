@@ -3,15 +3,18 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import SignIn from '../auth/SignIn';
 import SignUp from '../auth/SignUp';
+import setAuthToken from '../../utils/setAuthToken';
 
 class Navbar extends Component {
-  state = {
-    isAuthenticated: false,
-    user: {},
+  handleLogout = () => {
+    if (localStorage.getItem ('jwtToken')) {
+      localStorage.removeItem ('jwtToken');
+      setAuthToken (false);
+      this.props.history.push ('/login');
+    }
   };
-  handleLogout = () => {};
-  render() {
-    const {isAuthenticated, user} = this.state;
+  render () {
+    const {isAuthenticated, user} = this.props;
     const authLinks = (
       <React.Fragment>
         <li className="nav-item">
@@ -25,6 +28,7 @@ class Navbar extends Component {
           </Link>
         </li>
         <li className="nav-item">
+          <small>{user.name}</small>
           <a href="#" className="nav-link" onClick={this.handleLogout}>
             <img
               src={user.avatar}

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Redirect} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import TextInputField from '../shared/TextInputField';
@@ -10,25 +10,27 @@ class SignIn extends Component {
     errors: {},
   };
   handleChange = e => {
-    this.setState({
+    this.setState ({
       [e.target.name]: e.target.value,
     });
   };
   handleSubmit = e => {
-    e.preventDefault();
+    e.preventDefault ();
     const {email, password} = this.state;
     const data = {email, password};
     axios
-      .post('/api/users/signin', data)
-      .then(res => {
-        this.setState({errors: {}});
-        this.props.history.push('/students');
+      .post ('/api/users/signin', data)
+      .then (res => {
+        const {token} = res.data;
+        localStorage.setItem ('jwtToken', token);
+        this.setState ({errors: {}});
+        this.props.history.push ('/students');
       })
-      .catch(err => {
-        this.setState({errors: err.response.data});
+      .catch (err => {
+        this.setState ({errors: err.response.data});
       });
   };
-  render() {
+  render () {
     const {errors} = this.state;
     return (
       <div className="container">
@@ -70,4 +72,4 @@ class SignIn extends Component {
 
 SignIn.propTypes = {};
 
-export default withRouter(SignIn);
+export default withRouter (SignIn);
