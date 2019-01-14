@@ -3,6 +3,7 @@ import {withRouter, Redirect} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import TextInputField from '../shared/TextInputField';
+import auth from '../../auth';
 class SignIn extends Component {
   state = {
     email: '',
@@ -23,8 +24,12 @@ class SignIn extends Component {
       .then (res => {
         const {token} = res.data;
         localStorage.setItem ('jwtToken', token);
+        if (localStorage.getItem ('jwtToken')) {
+          auth.isAuthenticated = true;
+          
+          this.props.history.push ('/students');
+        }
         this.setState ({errors: {}});
-        this.props.history.push ('/students');
       })
       .catch (err => {
         this.setState ({errors: err.response.data});

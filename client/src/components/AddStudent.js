@@ -33,6 +33,7 @@ class AddStudent extends Component {
         this.setState ({
           errors: {},
         });
+        this.props.history.push ('/students');
         console.log (response);
       })
       .catch (err =>

@@ -1,4 +1,4 @@
 node_modules
 client/node_modules
-config/keys.js
+/server/config/keys.js
 res.js

@@ -20,7 +20,7 @@ userRouter.get('/current', verifyToken, (req, res) => {
 });
 // protected route
 userRouter.get(
-  '/me',
+  '/any/addd',
   passport.authenticate('jwt', {session: false}),
   (req, res) => {
     res.json(req.user);

@@ -3,27 +3,22 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import Student from './Student';
 class Students extends Component {
-  state = {
-    students: [],
-  };
-  componentDidMount () {
-    axios.get ('/api/students').then (response => {
-      console.log (response);
-      this.setState ({
-        students: response.data,
-      });
-    });
-  }
   renderStudents = () => {
-    let students = this.state.students;
+    let students = this.props.students;
     return students.map (student => {
-      return <Student key={student._id} student={student} />;
+      return (
+        <Student
+          key={student._id}
+          student={student}
+          getStudentsFromServer={this.props.getStudentsFromServer}
+        />
+      );
     });
   };
   render () {
     return (
       <div>
-        <p>{this.state.students.length}</p>
+        <p>{this.props.students.length}</p>
         <ul className="list-group">
           {this.renderStudents ()}
         </ul>

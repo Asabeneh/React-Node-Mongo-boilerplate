@@ -3,17 +3,14 @@
   "version": "1.0.0",
   "description": "\"It is second day of node\"",
   "main": "server.js",
-  "scripts": {
-    "client-install": "cd client && yarn",
-    "start": "node server.js",
-    "start-watch": "nodemon server.js",
-    "client": "yarn start --prefix client",
-    "heroku-postbuild": "cd client && yarn && yarn run build",
-    "dev": "concurrently \"yarn && yarn run start-watch\" \"cd  client  && yarn start"
-  },
-  "engines": {
-    "node": "10.12.0"
-  },
+ "scripts": {
+  "client-install": "yarn --prefix client",
+  "start": "node server.js",
+  "server": "nodemon server.js",
+  "client": "yarn start --prefix client",
+  "dev": "concurrently \"yarn run server\" \"cd client && yarn  && yarn start\"",
+  "heroku-postbuild": "cd client && yarn && yarn run build"
+ },
   "author": "",
   "license": "ISC",
   "dependencies": {

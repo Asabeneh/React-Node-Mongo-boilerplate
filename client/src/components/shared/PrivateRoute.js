@@ -1,30 +1,16 @@
 import React, {Component} from 'react';
 import {
-  BrowserRouter,
   Route,
-  Link,
-  Switch,
   Redirect,
-  withRouter,
-} from 'react-router-dom';
 
-const fakeAuth = {
-  isAuthenticated: false,
-  authenticate (cb) {
-    this.isAuthenticated = true;
-    setTimeout (cb, 100); // fake async
-  },
-  signout (cb) {
-    this.isAuthenticated = false;
-    setTimeout (cb, 100); // fake async
-  },
-};
+} from 'react-router-dom';
+import auth from '../../auth'
 
 const PrivateRoute = ({component: Component, ...rest}) => (
   <Route
     {...rest}
     render={props =>
-      fakeAuth.isAuthenticated
+      auth.isAuthenticated
         ? <Component {...props} />
         : <Redirect to="/signin" />}
   />
